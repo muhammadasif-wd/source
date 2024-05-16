@@ -1,5 +1,5 @@
 # Programming Knowledge Repository
-
+```
 source/
 │
 ├── README.md
@@ -54,7 +54,7 @@ source/
     ├── arrays.md
     ├── linked-lists.md
     └── ...
-
+```
 Welcome to the Programming Knowledge Repository. This repository is a comprehensive collection of reusable components, helpful commands, language guides, framework tutorials, best practices, algorithms, and data structures.
 
 ## Structure
