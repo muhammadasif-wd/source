@@ -1,37 +1,7 @@
 ```markdown
 # Sidebar Component
 
-This repository contains a customizable sidebar component built with React, Framer Motion for animations, and NextUI for styling. The sidebar supports nested menus, smooth animations, and a toggle feature for expanding and collapsing the menu.
-
-## Components
-
-### Sidebar
-
-The `Sidebar` component is the main container that handles the display and animation of the sidebar.
-
-#### Props
-
-- `children`: The content to be displayed next to the sidebar.
-
-#### Usage
-
-```jsx
-import Sidebar from './Sidebar';
-
-const App = () => {
-  return (
-    <Sidebar>
-      <div>Your main content goes here</div>
-    </Sidebar>
-  );
-};
-
-export default App;
-```
-
-### SidebarMenu
-
-The `SidebarMenu` component handles the submenu items and their animations within the sidebar.
+This repository contains a customizable sidebar component built with React, Framer Motion for animations, and NextUI for styling. The sidebar supports nested menus, smooth animations, and a toggle feature for expanding and collapsing the menu.The `Sidebar` component is the main container that handles the display and animation of the sidebar.
 
 #### Props
 
@@ -39,42 +9,6 @@ The `SidebarMenu` component handles the submenu items and their animations withi
 - `showAnimation`: The animation variants for showing the menu.
 - `isOpen`: A boolean indicating whether the sidebar is open.
 - `setIsOpen`: A function to set the open state of the sidebar.
-
-#### Usage
-
-```jsx
-import SidebarMenu from './SidebarMenu';
-
-const route = {
-  name: "Menu Item",
-  icon: "icon-name",
-  submenu: [
-    {
-      name: "Submenu Item 1",
-      link: "/submenu1",
-      icon: "submenu-icon1",
-    },
-    {
-      name: "Submenu Item 2",
-      link: "/submenu2",
-      icon: "submenu-icon2",
-    },
-  ],
-};
-
-const SidebarExample = () => {
-  return (
-    <SidebarMenu
-      route={route}
-      showAnimation={showAnimation}
-      isOpen={isOpen}
-      setIsOpen={setIsOpen}
-    />
-  );
-};
-
-export default SidebarExample;
-```
 
 ## Code Structure
 
