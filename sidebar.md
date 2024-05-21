@@ -1,4 +1,3 @@
-```markdown
 # Sidebar Component
 
 This repository contains a customizable sidebar component built with React, Framer Motion for animations, and NextUI for styling. The sidebar supports nested menus, smooth animations, and a toggle feature for expanding and collapsing the menu.The `Sidebar` component is the main container that handles the display and animation of the sidebar.
