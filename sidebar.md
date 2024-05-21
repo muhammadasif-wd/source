@@ -1,5 +1,6 @@
 ## sidebar
 
+``
 import {document_sidebar} from "@/assets/db/sidebar";
 import {NavLink} from "@/components/nav-link";
 import {Icon} from "@iconify/react";
@@ -120,6 +121,7 @@ const Sidebar = ({children}: any) => {
 };
 
 export default Sidebar;
+``
 
 
 ## sidebar menu
