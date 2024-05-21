@@ -1,16 +1,96 @@
-## sidebar
+```markdown
+# Sidebar Component
 
-``
-import {document_sidebar} from "@/assets/db/sidebar";
-import {NavLink} from "@/components/nav-link";
-import {Icon} from "@iconify/react";
-import {Button} from "@nextui-org/react";
-import {AnimatePresence, motion} from "framer-motion";
+This repository contains a customizable sidebar component built with React, Framer Motion for animations, and NextUI for styling. The sidebar supports nested menus, smooth animations, and a toggle feature for expanding and collapsing the menu.
+
+## Components
+
+### Sidebar
+
+The `Sidebar` component is the main container that handles the display and animation of the sidebar.
+
+#### Props
+
+- `children`: The content to be displayed next to the sidebar.
+
+#### Usage
+
+```jsx
+import Sidebar from './Sidebar';
+
+const App = () => {
+  return (
+    <Sidebar>
+      <div>Your main content goes here</div>
+    </Sidebar>
+  );
+};
+
+export default App;
+```
+
+### SidebarMenu
+
+The `SidebarMenu` component handles the submenu items and their animations within the sidebar.
+
+#### Props
+
+- `route`: An object containing the details of the route including its name, link, icon, and submenu items.
+- `showAnimation`: The animation variants for showing the menu.
+- `isOpen`: A boolean indicating whether the sidebar is open.
+- `setIsOpen`: A function to set the open state of the sidebar.
+
+#### Usage
+
+```jsx
+import SidebarMenu from './SidebarMenu';
+
+const route = {
+  name: "Menu Item",
+  icon: "icon-name",
+  submenu: [
+    {
+      name: "Submenu Item 1",
+      link: "/submenu1",
+      icon: "submenu-icon1",
+    },
+    {
+      name: "Submenu Item 2",
+      link: "/submenu2",
+      icon: "submenu-icon2",
+    },
+  ],
+};
+
+const SidebarExample = () => {
+  return (
+    <SidebarMenu
+      route={route}
+      showAnimation={showAnimation}
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+    />
+  );
+};
+
+export default SidebarExample;
+```
+
+## Code Structure
+
+### `Sidebar.tsx`
+
+```tsx
+import { document_sidebar } from "@/assets/db/sidebar";
+import { NavLink } from "@/components/nav-link";
+import { Icon } from "@iconify/react";
+import { Button } from "@nextui-org/react";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import {useState} from "react";
+import { useState } from "react";
 import SidebarMenu from "./sidebarMenu";
 
-const Sidebar = ({children}: any) => {
+const Sidebar = ({ children }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
@@ -35,7 +115,6 @@ const Sidebar = ({children}: any) => {
     <motion.div
       animate={{
         width: isOpen ? "324px" : "80px",
-
         transition: {
           duration: 0.5,
           type: "spring",
@@ -47,7 +126,6 @@ const Sidebar = ({children}: any) => {
       <motion.div
         animate={{
           width: isOpen ? "272px" : "80px",
-
           transition: {
             duration: 0.5,
             type: "spring",
@@ -60,10 +138,7 @@ const Sidebar = ({children}: any) => {
           <AnimatePresence>
             {isOpen && (
               <motion.div variants={showAnimation} initial="hidden" animate="show" exit="hidden">
-                <Link
-                  href={"/document-service"}
-                  className="text-xl font-bold text-dark dark:text-foreground "
-                >
+                <Link href={"/document-service"} className="text-xl font-bold text-dark dark:text-foreground">
                   DMS
                 </Link>
               </motion.div>
@@ -98,13 +173,7 @@ const Sidebar = ({children}: any) => {
                 <Icon className={`w-5 h-5`} icon={route.icon} />
                 <AnimatePresence>
                   {isOpen && (
-                    <motion.div
-                      variants={showAnimation}
-                      initial="hidden"
-                      animate="show"
-                      exit="hidden"
-                      className="link_text"
-                    >
+                    <motion.div variants={showAnimation} initial="hidden" animate="show" exit="hidden" className="link_text">
                       {route.name}
                     </motion.div>
                   )}
@@ -121,23 +190,23 @@ const Sidebar = ({children}: any) => {
 };
 
 export default Sidebar;
-``
+```
 
+### `sidebarMenu.tsx`
 
-## sidebar menu
-
-import {NavLink} from "@/components/nav-link";
-import {Icon} from "@iconify/react";
-import {Button} from "@nextui-org/react";
-import {AnimatePresence, motion} from "framer-motion";
-import {useEffect, useState} from "react";
+```tsx
+import { NavLink } from "@/components/nav-link";
+import { Icon } from "@iconify/react";
+import { Button } from "@nextui-org/react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const menuAnimation = {
   hidden: {
     opacity: 0,
     height: 0,
     padding: 0,
-    transition: {duration: 0.3, when: "afterChildren"},
+    transition: { duration: 0.3, when: "afterChildren" },
   },
   show: {
     opacity: 1,
@@ -164,7 +233,7 @@ const menuItemAnimation = {
   }),
 };
 
-const SidebarMenu = ({route, showAnimation, isOpen, setIsOpen}: any) => {
+const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }: any) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -202,7 +271,7 @@ const SidebarMenu = ({route, showAnimation, isOpen, setIsOpen}: any) => {
                 ? {
                     rotate: -90,
                   }
-                : {rotate: 0}
+                : { rotate: 0 }
             }
           >
             <Icon className="w-5 h-5" icon="mingcute:down-fill" />
@@ -211,19 +280,10 @@ const SidebarMenu = ({route, showAnimation, isOpen, setIsOpen}: any) => {
       </Button>
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
-            variants={menuAnimation}
-            initial="hidden"
-            animate="show"
-            exit="hidden"
-            className="space-y-1"
-          >
+          <motion.div variants={menuAnimation} initial="hidden" animate="show" exit="hidden" className="space-y-1">
             {route.submenu?.map((subRoute: any, i: any) => (
               <motion.div variants={menuItemAnimation} key={i} custom={i}>
-                <NavLink
-                  href={subRoute.link}
-                  className="ml-5 flex items-center justify-start gap-3"
-                >
+                <NavLink href={subRoute.link} className="ml-5 flex items-center justify-start gap-3">
                   <Icon className="w-5 h-5" icon={subRoute.icon} />
                   <motion.div className="">{subRoute.name}</motion.div>
                 </NavLink>
@@ -237,6 +297,27 @@ const SidebarMenu = ({route, showAnimation, isOpen, setIsOpen}: any) => {
 };
 
 export default SidebarMenu;
+```
 
+## Installation
 
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/yourusername/sidebar-component.git
+    ```
+2. Install the dependencies:
+    ```bash
+    cd sidebar-component
+    npm install
+    ```
+3. Run the development server:
+    ```bash
+    npm run dev
+    ```
 
+## License
+
+This project is licensed under the MIT License.
+```
+
+This README.md provides an overview of the Sidebar and SidebarMenu components, including their props, usage examples, and the code structure. Adjust the content to better fit your repository's specific needs and structure if necessary.
