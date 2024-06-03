@@ -68,7 +68,23 @@ function RFileUpload({onChange, initialImages = []}: IFileUploaderProps) {
                 {...dragProps}
               >
                 <div className="flex justify-center gap-3 items-center font-medium text-center">
-                  <h3>Drag and drop your files or</h3>
+                  {imageList.length === 1 &&
+                    imageList.map((image, index) => (
+                      <div className="flex gap-1 items-center">
+                        <Image
+                          radius="sm"
+                          src={image.data_url}
+                          alt=""
+                          className="w-16 h-10 object-cover border"
+                        />{" "}
+                        <h3 className="font-medium text-dark dark:text-foreground">
+                          {Object.entries((image as any)?.file?.name)?.length > 16
+                            ? `${image?.file?.name.slice(0, 16)}...`
+                            : image?.file?.name.slice(0, 16)}
+                        </h3>
+                      </div>
+                    ))}
+                  {imageList.length !== 1 && <h3>Drag and drop your files or</h3>}
                   <div className="flex gap-1 items-center">
                     <Button
                       size="sm"
@@ -97,68 +113,70 @@ function RFileUpload({onChange, initialImages = []}: IFileUploaderProps) {
                 </div>
               </CardBody>
 
-              <div
-                className="space-y-1"
-                style={imageList.length > 0 ? {marginTop: "10px"} : undefined}
-              >
-                {imageList.map((image, index) => (
-                  <div key={index} className="border rounded-lg p-1">
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center justify-between">
-                        <div className="flex gap-1 items-center">
-                          <Image
-                            radius="sm"
-                            src={image.data_url}
-                            alt=""
-                            className="w-16 h-10 object-cover border"
-                          />{" "}
-                          <h3 className="font-medium text-dark dark:text-foreground">
-                            {Object.entries((image as any)?.file?.name)?.length > 16
-                              ? `${image?.file?.name.slice(0, 16)}...`
-                              : image?.file?.name.slice(0, 16)}
-                          </h3>
-                        </div>
-                      </div>
-                      <div className="space-y-1">
-                        <div className="flex gap-1 items-center">
-                          <div className="text-dark dark:text-light">
-                            {Math.round((image.file?.size || 0) / 1024) > 1024
-                              ? `${Math.round((image.file?.size || 0) / (1024 * 1024))} MB`
-                              : `${Math.round((image.file?.size || 0) / 1024)} KB`}
+              {imageList.length > 1 && (
+                <div
+                  className="space-y-1"
+                  style={imageList.length > 0 ? {marginTop: "10px"} : undefined}
+                >
+                  {imageList.map((image, index) => (
+                    <div key={index} className="border rounded-lg p-1">
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center justify-between">
+                          <div className="flex gap-1 items-center">
+                            <Image
+                              radius="sm"
+                              src={image.data_url}
+                              alt=""
+                              className="w-16 h-10 object-cover border"
+                            />{" "}
+                            <h3 className="font-medium text-dark dark:text-foreground">
+                              {Object.entries((image as any)?.file?.name)?.length > 16
+                                ? `${image?.file?.name.slice(0, 16)}...`
+                                : image?.file?.name.slice(0, 16)}
+                            </h3>
                           </div>
-                          <div className="space-x-1">
-                            <Tooltip content="Update" color="secondary" showArrow={true}>
-                              <Button
-                                variant="flat"
-                                color="secondary"
-                                size="sm"
-                                isIconOnly
-                                onClick={() => onImageUpdate(index)}
-                              >
-                                <Icon className="w-5 h-5" icon="solar:restart-broken" />
-                              </Button>
-                            </Tooltip>
-                            <Tooltip content="Remove" color="danger" showArrow={true}>
-                              <Button
-                                variant="flat"
-                                color="danger"
-                                size="sm"
-                                isIconOnly
-                                onClick={() => onImageRemove(index)}
-                              >
-                                <Icon
-                                  className="w-5 h-5"
-                                  icon="solar:trash-bin-minimalistic-broken"
-                                />
-                              </Button>
-                            </Tooltip>
+                        </div>
+                        <div className="space-y-1">
+                          <div className="flex gap-1 items-center">
+                            <div className="text-dark dark:text-light">
+                              {Math.round((image.file?.size || 0) / 1024) > 1024
+                                ? `${Math.round((image.file?.size || 0) / (1024 * 1024))} MB`
+                                : `${Math.round((image.file?.size || 0) / 1024)} KB`}
+                            </div>
+                            <div className="space-x-1">
+                              <Tooltip content="Update" color="secondary" showArrow={true}>
+                                <Button
+                                  variant="flat"
+                                  color="secondary"
+                                  size="sm"
+                                  isIconOnly
+                                  onClick={() => onImageUpdate(index)}
+                                >
+                                  <Icon className="w-5 h-5" icon="solar:restart-broken" />
+                                </Button>
+                              </Tooltip>
+                              <Tooltip content="Remove" color="danger" showArrow={true}>
+                                <Button
+                                  variant="flat"
+                                  color="danger"
+                                  size="sm"
+                                  isIconOnly
+                                  onClick={() => onImageRemove(index)}
+                                >
+                                  <Icon
+                                    className="w-5 h-5"
+                                    icon="solar:trash-bin-minimalistic-broken"
+                                  />
+                                </Button>
+                              </Tooltip>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </Card>
           </div>
         )}
@@ -168,3 +186,7 @@ function RFileUpload({onChange, initialImages = []}: IFileUploaderProps) {
 }
 
 export default RFileUpload;
+
+{
+  /* <RFileUpload onChange={handleImageChange} initialImages={images} /> */
+}
