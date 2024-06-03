@@ -190,5 +190,15 @@ function RFileUpload({onChange, initialImages = []}: IFileUploaderProps) {
 export default RFileUpload;
 
 {
-  /* <RFileUpload onChange={handleImageChange} initialImages={images} /> */
+  /*
+  const [images, setImages] = useState<any>([]);
+
+  const handleImageChange = (imageList: any) => {
+    // Handle the updated image list
+    setImages(imageList);
+    console.log("Updated images:", imageList);
+  };
+  
+  <RFileUpload onChange={handleImageChange} initialImages={images} /> 
+  */
 }
