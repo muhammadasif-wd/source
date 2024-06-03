@@ -62,7 +62,7 @@ function RFileUpload({onChange, initialImages = []}: IFileUploaderProps) {
             )}
             <Card className="w-fit p-3 text-dark dark:text-light" shadow="sm">
               <CardBody
-                className={`border-primary border border-dark/10 h-full rounded-lg`}
+                className={`border dark:border-light/40 h-full rounded-lg`}
                 style={isDragging ? {color: "red", borderColor: "red"} : undefined}
                 onClick={onImageUpload}
                 {...dragProps}
@@ -75,16 +75,18 @@ function RFileUpload({onChange, initialImages = []}: IFileUploaderProps) {
                           radius="sm"
                           src={image.data_url}
                           alt=""
-                          className="w-16 h-10 object-cover border"
+                          className="w-16 h-10 object-cover border dark:border-light/40"
                         />{" "}
-                        <h3 className="font-medium text-dark dark:text-foreground">
+                        <h3 className="font-medium text-dark dark:text-light">
                           {Object.entries((image as any)?.file?.name)?.length > 16
                             ? `${image?.file?.name.slice(0, 16)}...`
                             : image?.file?.name.slice(0, 16)}
                         </h3>
                       </div>
                     ))}
-                  {imageList.length !== 1 && <h3>Drag and drop your files or</h3>}
+                  {imageList.length !== 1 && (
+                    <h3 className="text-dark dark:text-light">Drag and drop your files or</h3>
+                  )}
                   <div className="flex gap-1 items-center">
                     <Button
                       size="sm"
@@ -119,7 +121,7 @@ function RFileUpload({onChange, initialImages = []}: IFileUploaderProps) {
                   style={imageList.length > 0 ? {marginTop: "10px"} : undefined}
                 >
                   {imageList.map((image, index) => (
-                    <div key={index} className="border rounded-lg p-1">
+                    <div key={index} className="border dark:border-light/40 rounded-lg p-1">
                       <div className="flex items-center justify-between gap-3">
                         <div className="flex items-center justify-between">
                           <div className="flex gap-1 items-center">
@@ -127,9 +129,9 @@ function RFileUpload({onChange, initialImages = []}: IFileUploaderProps) {
                               radius="sm"
                               src={image.data_url}
                               alt=""
-                              className="w-16 h-10 object-cover border"
+                              className="w-16 h-10 object-cover border dark:border-light/40"
                             />{" "}
-                            <h3 className="font-medium text-dark dark:text-foreground">
+                            <h3 className="font-medium text-dark dark:text-light">
                               {Object.entries((image as any)?.file?.name)?.length > 16
                                 ? `${image?.file?.name.slice(0, 16)}...`
                                 : image?.file?.name.slice(0, 16)}
@@ -144,10 +146,10 @@ function RFileUpload({onChange, initialImages = []}: IFileUploaderProps) {
                                 : `${Math.round((image.file?.size || 0) / 1024)} KB`}
                             </div>
                             <div className="space-x-1">
-                              <Tooltip content="Update" color="secondary" showArrow={true}>
+                              <Tooltip content="Update" color="primary" showArrow={true}>
                                 <Button
                                   variant="flat"
-                                  color="secondary"
+                                  color="primary"
                                   size="sm"
                                   isIconOnly
                                   onClick={() => onImageUpdate(index)}
