@@ -1,43 +1,39 @@
-import React, {useDebugValue, useEffect, useState} from "react";
+"use client";
 
-export const useLocalStorage = <S>(
+import {useState, useEffect, useDebugValue} from "react";
+
+const parse = (value: string) => {
+  try {
+    return JSON.parse(value);
+  } catch {
+    return value;
+  }
+};
+
+const useLocalStorage = <S>(
   key: string,
   initialState?: S | (() => S),
 ): [S, React.Dispatch<React.SetStateAction<S>>, () => void] => {
   const [state, setState] = useState<S>(() => {
-    // check if localStorage is available
-    try {
-      if (typeof localStorage !== "undefined") {
-        const item = localStorage.getItem(key);
-
-        return item ? parse(item) : (initialState as S);
-      } else {
-        console.error("localStorage is not available.");
-      }
-    } catch (error) {
-      console.error("Error accessing localStorage:", error);
-    }
-
-    return typeof initialState === "function" ? (initialState as () => S)() : initialState;
+    const value = typeof initialState === "function" ? (initialState as () => S)() : initialState;
+    return value !== undefined ? value : ({} as S);
   });
 
-  useDebugValue(state);
-  // get item from local storage
   useEffect(() => {
     try {
       if (typeof localStorage !== "undefined") {
         const item = localStorage.getItem(key);
-
-        if (item) setState(parse(item));
+        setState(item ? parse(item) : (initialState as S));
       } else {
         console.error("localStorage is not available.");
       }
     } catch (error) {
       console.error("Error accessing localStorage:", error);
     }
-  }, [key]);
+  }, [key, initialState]);
 
-  // set item from local storage
+  useDebugValue(state);
+
   useEffect(() => {
     try {
       if (typeof localStorage !== "undefined") {
@@ -57,7 +53,6 @@ export const useLocalStorage = <S>(
     }
   }, [key, state]);
 
-  // remove item from local storage
   const removeItem = () => {
     try {
       if (typeof localStorage !== "undefined") {
@@ -74,13 +69,7 @@ export const useLocalStorage = <S>(
   return [state, setState, removeItem];
 };
 
-const parse = (value: string) => {
-  try {
-    return JSON.parse(value);
-  } catch {
-    return value;
-  }
-};
+export default useLocalStorage;
 
 /*
 use case 1: const [value, setValue] = useLocalStorage("data", []);
