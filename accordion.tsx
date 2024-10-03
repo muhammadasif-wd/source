@@ -107,3 +107,41 @@ function AccordionPanel({className, children}: AccordionPanelProps) {
 }
 
 export {Accordion, AccordionHeader, AccordionItem, AccordionPanel};
+
+
+// using example
+// import React from "react";
+// import { Accordion, AccordionHeader, AccordionItem, AccordionPanel } from "./accordion";
+
+// const ExampleAccordion = () => {
+//   return (
+//     <Accordion multiple defaultIndex={0}>
+//       <AccordionItem className="mb-4">
+//         <AccordionHeader className="p-4 bg-gray-200" icon="➕" activeIcon="➖">
+//           Section 1
+//         </AccordionHeader>
+//         <AccordionPanel className="p-4 bg-gray-100">
+//           <p>This is the content of section 1.</p>
+//         </AccordionPanel>
+//       </AccordionItem>
+//       <AccordionItem className="mb-4">
+//         <AccordionHeader className="p-4 bg-gray-200" icon="➕" activeIcon="➖">
+//           Section 2
+//         </AccordionHeader>
+//         <AccordionPanel className="p-4 bg-gray-100">
+//           <p>This is the content of section 2.</p>
+//         </AccordionPanel>
+//       </AccordionItem>
+//       <AccordionItem className="mb-4">
+//         <AccordionHeader className="p-4 bg-gray-200" icon="➕" activeIcon="➖">
+//           Section 3
+//         </AccordionHeader>
+//         <AccordionPanel className="p-4 bg-gray-100">
+//           <p>This is the content of section 3.</p>
+//         </AccordionPanel>
+//       </AccordionItem>
+//     </Accordion>
+//   );
+// };
+
+// export default ExampleAccordion;
